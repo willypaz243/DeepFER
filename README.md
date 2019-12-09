@@ -33,6 +33,49 @@ Haciendo uso nuevamente de los Keypoints se obtiene una serie de caracteristicas
 
 Estos datos irán concatenados a lista de imagenes de Areas de interes para introducirlos como entrada en el modelo de deep learning.
 
-### 1.3 Modelado de Deep Learning y predicción.
- 
+### 1.3 Red Neuronal y predicción.
 
+#### 1.3.1 Modelado de la red neuronal artificial.
+Se usan tres redes neuronales para las tres areas de interez ojo iquierdo, ojo derecho y labios, estas redes tienensus capas de salida concatenada hacia la salida final del modelo, de la misma forma se concatena con la ultima capa de un cuarto un modelo para las caracteristicas faciales relevantes para las expresiones, el modelo final estaria estructurada de esta forma:
+
+#### 1.3.2 Entrenamiento y validacion.
+Finalmente, teniendo el modelo completo, que recibe tres imagenes a escala de grises de tamaño 90x90, y un vector de caracteristicas de 13 datos, se procede a realizar un entrenamiento.
+
+El entrenbamiento consta de los siguientes detalles:
+-El modelo entrenó durante 400 epocas con 4625 imagenes.
+-La precision del modelo esta validado con 1167 imagenes deprueba.
+-La precision del modelo en los datos de validacion llega al 90.8% en promedio.
+#### 1.3.3 Predicción
+El modelo retorna un vector de 7 numeros reales con valores que van de 0-1, cada numero represente el la intencidad de cada emocion de las 7 emociones básicas, las emociones estan en una lista en el siguiente orden:
+
+
+ 0.-Alegria
+ 
+ 1.-Neutral
+ 
+ 2.-Tristeza
+ 
+ 3.-Enfado
+ 
+ 4.-Asco
+ 
+ 5.-Sorpresa
+ 
+ 6.-Miedo
+ 
+ ## 2 Dependencias.
+ _La aplicacion depende de las siguientes librerias_
+ ```
+  - OpenCV          https://opencv.org/
+  - Dlib            http://dlib.net/
+  - NumPy           https://numpy.org/
+  - Matplotlib      https://matplotlib.org/
+  - Tensorflow 2.0  https://www.tensorflow.org/install
+ ```
+ _Para intalar las dependencias puede ejecutar el siguiente comando, es necesario que tengan instalado pip._
+ Para instalar en una máquina virtual con python3:
+   >**pip install -r requirements.txt**
+ 
+ Para instalar en el sistema:
+  >**pip3 install -r requirements.txt**
+ 
