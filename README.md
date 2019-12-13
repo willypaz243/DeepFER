@@ -39,7 +39,9 @@ Existes tres Áreas de interés en las que son mas notorias las expreciones faci
 Haciendo uso nuevamente de los Keypoints se obtiene una serie de caracteristicas que diferentes en cada exprecion facial, en este caso se utiliza la distancia entre componentes del rostro que varian en cada expresion, por ejemplo: la distancia entre las cejas y los ojos, distancia entre las cejas, distancia entre el labio superior e inferior, etc.
 
 ![Resultado](./Dfer_images/Features.png)
-![Resultado](./Dfer_images/Features_heppiness.png)
+
+
+![Resultado](./Dfer_images/Features_happiness.png)
 
 Estos datos irán concatenados a lista de imagenes de Areas de interes para introducirlos como entrada en el modelo de deep learning.
 
@@ -59,7 +61,7 @@ El entrenbamiento consta de los siguientes detalles:
 -La precision del modelo en los datos de validacion llega al 90.8% en promedio.
 
 **Entrenamiento**
-![Resultado](./Dfer_images/train_1png)
+![Resultado](./Dfer_images/train_1.png)
 ![Resultado](./Dfer_images/train_2.png)
 **Presioción**
 ![Resultado](./Dfer_images/test.png)
