@@ -86,17 +86,120 @@ El modelo retorna un vector de 7 numeros reales con valores que van de 0-1, cada
  
  ## 2 Dependencias.
  _La aplicacion depende de las siguientes librerias_
- ```
+ 
   - OpenCV          https://opencv.org/
   - Dlib            http://dlib.net/
   - NumPy           https://numpy.org/
   - Matplotlib      https://matplotlib.org/
   - Tensorflow 2.0  https://www.tensorflow.org/install
- ```
+  
+
  _Para intalar las dependencias puede ejecutar el siguiente comando, es necesario que tengan instalado pip._
  Para instalar en una máquina virtual con python3:
-   >**pip install -r requirements.txt**
+ ```
+   pip install -r requirements.txt
+```
  
  Para instalar en el sistema:
-  >**pip3 install -r requirements.txt**
+ 
+ ```
+    pip3 install -r requirements.txt
+ ```
+  
+## 3 Como usar.
+El siguiente código muestra un ejemplo de como usar el paquete, el código esta escrito el en archivo ejemplo.py.
+
+```python
+# Importando el paquete
+from DFER.expression_recognition import Deep_fer_predictor
+DFERP = Deep_fer_predictor()
+
+ETIQUETAS = ['feliz', 'neutral', 'tristeza', 'enfado', 'asco', 'sorpresa', 'miedo']
+
+# cargamos una imagen de prueba.
+import cv2
+img = cv2.imread('img_example.jpg')
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+rectangulo, prediccion = DFERP.predict_one( gray )
+
+print('--------------------------------')
+print('Rectangulo:\n', rectangulo)
+print('--------------------------------')
+print('Predicción\n', prediccion)
+
+print('--------------------------------')
+indice = prediccion.argmax() # tomamos el índice del valor máximo
+emocion = ETIQUETAS[indice]
+print('Emoción:', emocion)
+print('--------------------------------')
+
+
+# Para detectar todos los rostros de la imagen.
+multi_img = cv2.imread('multi_target.jpg')
+multi_gray = cv2.cvtColor(multi_img, cv2.COLOR_BGR2GRAY)
+
+rectangulos, predicciones = DFERP.predict_many(multi_gray)
+
+
+print("======================================")
+print('Resultados Multi-target')
+print('--------------------------------')
+for rect, pred in zip(rectangulos, predicciones):
+    print('Rectangulo:\n', rect)
+    print('Predicción\n', pred)
+    i = pred.argmax()
+    e = ETIQUETAS[i]
+    print('Emoción:', e)
+    print('--------------------------------')
+print("======================================")
+
+
+# Graficar la imagen y el resultado
+import matplotlib.pyplot as plt
+
+# marcando el rectangulo en la imagen
+pt1 = tuple(rectangulo[0]) # Primera fila de la matriz de 2 x 2
+pt2 = tuple(rectangulo[1]) # Segunda fila de la matriz de 2 x 2
+
+# Dibuja el Rectangulo con grosor de linea de 2 pixeles
+cv2.rectangle(img, pt1, pt2, (0,255,0), 2) 
+
+# Fijamos el tamaño de la grafica
+plt.figure(figsize=(16,8))
+
+#Aqui mostramos la imagen
+plt.subplot(1,2,1)
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # cambiamos de BGR a RGB
+plt.imshow(img)
+plt.title(f'Emocion: {emocion}')
+
+# Aquí mostramos una grafica de barras.
+plt.subplot(1,2,2)
+# Usamos el vector en un grafico de barras.
+thisplot = plt.bar(range(7), prediccion, color="#777777")
+# Coloramos de azul el valor mas alto del vector representado en barras.
+thisplot[indice].set_color('blue')
+plt.ylim([0, 1]) # limite de la altura de las barras.
+#etiquetamos las barras con la emocion que corresponda.
+_ = plt.xticks(range(7), ETIQUETAS, rotation=45)
+
+plt.show()
+
+
+
+```
+### Los resultado son:
+
+
+**Resultados en consola**
+Un solo rostro.
+![resultado](./Dfer_images/res_consola.png)
+Varios rostros.
+![resultado](./Dfer_images/multiTarget.png)
+
+**Resultados en la gráfica**
+![resultado](./Dfer_images/Resultados.png)
+
+
  
