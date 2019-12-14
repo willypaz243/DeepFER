@@ -63,7 +63,7 @@ El entrenbamiento consta de los siguientes detalles:
 **Entrenamiento**
 ![Resultado](./Dfer_images/train_1.png)
 ![Resultado](./Dfer_images/train_2.png)
-**Presioción**
+**Presición**
 ![Resultado](./Dfer_images/test.png)
 
 #### 1.3.3 Predicción
@@ -121,6 +121,7 @@ import cv2
 img = cv2.imread('img_example.jpg')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
+# Hacemos la predicción para un rostro en una imagen.
 rectangulo, prediccion = DFERP.predict_one( gray )
 
 print('--------------------------------')
@@ -139,6 +140,7 @@ print('--------------------------------')
 multi_img = cv2.imread('multi_target.jpg')
 multi_gray = cv2.cvtColor(multi_img, cv2.COLOR_BGR2GRAY)
 
+# Hacemos la predicción para varios rostros en una imagen.
 rectangulos, predicciones = DFERP.predict_many(multi_gray)
 
 
@@ -200,6 +202,27 @@ Varios rostros.
 
 **Resultados en la gráfica**
 ![resultado](./Dfer_images/Resultados.png)
+
+## Ejemplo con webcam.
+Puede ejecutar el script **cam.py**, activara la Web Cam y una barra para visualizar en tiempo real la emocion que representa tu expresión facial en ese instante.
+
+Antes de ejecutar el script instale las dependencias que se muestran en el apartado de dependencias.
+
+Para ejecutar el script ejecute:
+```$
+python cam.py # si esta en un entorno virtual con python3.
+python3 cam.py # si esta en el istema.
+```
+puede usar la camara de su celular, solo instale una aplicacion llamada "DroidCam" en su telefono móvil y ejecute el siguiente comando.
+```
+python cam.py 127.0.0.1:0000 # si esta en un entorno virtual con python3.
+python3 cam.py 127.0.0.1:0000 # si esta en el istema.
+```
+Donde "127.0.0.1" pones la IP de la camaray donde "0000" el puerto.
+
+## Autores
+
+* **Willy Samuel Paz Colque** - *Trabajo total*
 
 
  
