@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'NotoEmoji';
+    src: url('../assets/Noto_Emoji/NotoEmoji-VariableFont_wght.ttf') format('truetype');
+}
+
+iframe {
+    border-radius: inherit;
+}

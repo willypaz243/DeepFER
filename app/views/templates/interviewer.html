@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+  <title>Interviewer</title>
+</head>
+
+<body style="background-color: #4f4f4f; min-height: 100vh;">
+
+
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" style="display: flex; align-items: center;">
+        <img src="../static/assets/scesi_white.png" alt="LOGO" width="120" height="75"
+          class="d-inline-block align-text-top">
+      </a>
+    </div>
+  </nav>
+
+  <div class="container d-flex flex-column justify-content-center text-light" style="min-height: 100vh;">
+
+
+    <div class="row">
+      <div class="col-8 offset-2 text-center">
+        <h2>Entrevista</h2>
+      </div>
+    </div>
+
+
+
+    <div class="row w-40" id="interview-controls">
+
+      <div class="col d-flex justify-content-center">
+        <button type="button" class="btn btn-success float-right" id="toggleButtom">Monitorear</button>
+      </div>
+
+      <div class="col d-flex justify-content-center">
+        <button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#reportModal"
+          id="reportButtom">Mostrar ultimo reporte</button>
+      </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade " id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" id="modalDialog">
+        <div class="modal-content bg-dark">
+          <div class="modal-header">
+            <h5 class="modal-title" id="reportModalLabel">reporte</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="modalBody">
+            <img id="reportFig" class="img-fluid" src="" alt="Imagen no disponible">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="py-4 px-0 d-flex justify-content-center">
+      <div id="feelings" class="d-flex w-100 pt-5 px-3 mt-5 d-none"
+        style="position: absolute; width: 1080px !important;">
+        <div class="py-3"
+          style="width: 35%; background-color: rgba(0, 0, 0, 0.3); padding-left: 15px; border-radius: 15px;">
+          <style>
+            .progress {
+              margin: auto;
+              height: 14px;
+            }
+          </style>
+          <div class="d-flex justify-content-center">
+            <span style="font-family: 'NotoEmoji0';">☺️</span>
+            <div class="w-100 mx-3 progress">
+              <div id="Feliz" class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 100%"
+                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Feliz</div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <span style="font-family: 'NotoEmoji0';">🧑</span>
+            <div class="w-100 mx-3 progress">
+              <div id="Neutral" class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 100%"
+                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Neutral</div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <span style="font-family: 'NotoEmoji0';">😢</span>
+            <div class="w-100 mx-3 progress">
+              <div id="Triste" class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 100%"
+                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">Triste</div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <span style="font-family: 'NotoEmoji0';">😡</span>
+            <div class="w-100 mx-3 progress">
+              <div id="Enfado" class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 100%"
+                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Enfado</div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <span style="font-family: 'NotoEmoji0';">🤢</span>
+            <div class="w-100 mx-3 progress">
+              <div id="Asco" class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 100%"
+                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Asco</div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <span style="font-family: 'NotoEmoji0';">😮</span>
+            <div class="w-100 mx-3 progress">
+              <div id="Sorpresa" class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 100%"
+                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Sorpresa</div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <span style="font-family: 'NotoEmoji0';">😨</span>
+            <div class="w-100 mx-3 progress">
+              <div id="Miedo" class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 100%"
+                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Miedo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex px-2 justify-content-center" id="meet" style="border-radius: 15px;"></div>
+    </div>
+
+  </div>
+  <script src='https://meet.jit.si/external_api.js'></script>
+  <script src="{{ url_for('static', path='/js/main.js') }}"></script>
+  <script src="{{ url_for('static', path='/js/interviewer.js') }}"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
