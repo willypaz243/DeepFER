@@ -13,27 +13,15 @@ sio = socketio.AsyncServer(cors_allowed_origins="*", async_mode="asgi")
 
 views_dir = os.path.join(os.path.dirname(__file__), "views")
 
-app.mount(
-    "/static", StaticFiles(directory=os.path.join(views_dir, "static")), name="static"
-)
+app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
 app.mount("/ws", socketio.ASGIApp(sio, socketio_path="/"))
-templates = Jinja2Templates(directory=os.path.join(views_dir, "templates"))
+templates = Jinja2Templates(directory="dist")
 
 last_time = time.time()
 
 
 @app.get("/")
-async def root():
-    return {"ws": "find"}
-
-
-@app.get("/admin")
-async def admin(request: Request):
-    return templates.TemplateResponse("admin.html", {"request": request})
-
-
-@app.get("/home")
-async def home(request: Request):
+async def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
