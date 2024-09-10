@@ -1,16 +1,17 @@
-import os
 import base64
+import os
 from io import BytesIO
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect, status
 
-from app.api.utils import analize_img_to_feeling, LABELS
+from app.applications.utils import LABELS, analize_img_to_feeling
 
 router = APIRouter()
 
-CSV_PATH = 'history.csv'
+CSV_PATH = "history.csv"
 
 
 class InterviewConnection:
@@ -25,11 +26,11 @@ class InterviewConnection:
         self.interview = None
 
     async def send_analysis(self, data):
-        if (self.interview is not None):
+        if self.interview is not None:
             await self.interview.send_json(data)
 
     def add_prediction(self, prediction):
-        if (prediction is not None):
+        if prediction is not None:
             self.history = np.append(self.history, [prediction], axis=0)
 
     def save_history(self):
@@ -48,7 +49,7 @@ async def applicantWS(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_json()
-            res, prediction = analize_img_to_feeling(data['data'])
+            res, prediction = analize_img_to_feeling(data["data"])
             await interview.send_analysis(res)
             interview.add_prediction(prediction)
     except WebSocketDisconnect:
@@ -56,15 +57,15 @@ async def applicantWS(websocket: WebSocket):
         interview.save_history()
 
 
-@router.get('/feeling_report')
+@router.get("/feeling_report")
 async def get_feeling_report():
-    if (not os.path.exists(CSV_PATH)):
+    if not os.path.exists(CSV_PATH):
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Report not found")
     df = pd.read_csv(CSV_PATH)
     df.plot(subplots=True, figsize=(20, 10), layout=(4, 2), ylim=(0, 100))
     plt.tight_layout()
     my_stringIObytes = BytesIO()
-    plt.savefig(my_stringIObytes, format='png')
+    plt.savefig(my_stringIObytes, format="png")
     my_stringIObytes.seek(0)
     my_base64_jpgData = base64.b64encode(my_stringIObytes.read())
-    return {'data': my_base64_jpgData}
+    return {"data": my_base64_jpgData}

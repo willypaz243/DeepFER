@@ -1,12 +1,17 @@
-from os.path import abspath, join, dirname
+from os.path import abspath, dirname, join
 
 import numpy as np
 from dlib import get_frontal_face_detector
-from tensorflow import concat
 from keras.models import load_model
+from tensorflow import concat
 
-from .process_data import (escalar_img, get_data, get_date_features,
-                           get_face_parts, get_key_points)
+from .process_data import (
+    escalar_img,
+    get_data,
+    get_date_features,
+    get_face_parts,
+    get_key_points,
+)
 
 
 class FedPredictor:

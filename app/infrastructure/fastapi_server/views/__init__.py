@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 views = APIRouter()
-templates = Jinja2Templates(directory='app/views/templates')
+templates = Jinja2Templates(directory='app/infrastructure/views/templates')
 
 
 @views.get('/interviewer', response_class=HTMLResponse)

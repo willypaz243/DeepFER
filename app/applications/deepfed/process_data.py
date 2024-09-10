@@ -4,7 +4,13 @@ import sys
 import cv2
 import dlib
 import numpy as np
-from .image_processor import calcular_angulo, enderezar_imagen, rotar_puntos, obtener_recorte
+
+from .image_processor import (
+    calcular_angulo,
+    enderezar_imagen,
+    obtener_recorte,
+    rotar_puntos,
+)
 
 path = os.path.dirname(__file__)
 path = os.path.join(path, "shape_predictor_68_face_landmarks.dat")
