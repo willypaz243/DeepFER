@@ -3,6 +3,8 @@ __pycache__
 
 # enviroment
 env
+.venv
+.env
 
 # models
 trained_models/

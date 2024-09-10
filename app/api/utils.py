@@ -1,5 +1,6 @@
-import cv2
 import base64
+
+import cv2
 import numpy as np
 
 from .deepfed import FedPredictor
@@ -10,7 +11,7 @@ LABELS = ['Feliz', 'Neutral', 'Triste', 'Enfado', 'Asco', 'Sorpresa', 'Miedo']
 
 def from_base64_to_cv2_image(buf) -> np.ndarray:
     buf_decode = base64.b64decode(buf)
-    buf_arr: np.ndarray = np.fromstring(buf_decode, dtype=np.uint8)
+    buf_arr: np.ndarray = np.frombuffer(buf_decode, dtype=np.uint8)
     return cv2.imdecode(buf_arr, cv2.IMREAD_UNCHANGED)
 
 

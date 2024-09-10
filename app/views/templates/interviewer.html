@@ -33,6 +33,17 @@
     </div>
 
 
+    <div class="row w-40" id="video-container">
+      <div class="col d-flex justify-content-center">
+        <video id="video-stream" width="640" height="480" autoplay></video>
+      </div>
+      <div class="col d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary" id="mute-button">Mutar</button>
+        <button type="button" class="btn btn-secondary" id="camera-button">Apagar cámara</button>
+      </div>
+    </div>
+
+
 
     <div class="row w-40" id="interview-controls">
 
@@ -131,9 +142,11 @@
     </div>
 
   </div>
-  <script src='https://meet.jit.si/external_api.js'></script>
+  <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+    integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+    crossorigin="anonymous"></script>
   <script src="{{ url_for('static', path='/js/main.js') }}"></script>
-  <script src="{{ url_for('static', path='/js/interviewer.js') }}"></script>
+  <!-- <script src="{{ url_for('static', path='/js/interviewer.js') }}"></script> -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

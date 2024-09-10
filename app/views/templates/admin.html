@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Administrador</title>
+  <script src="https://cdn.jsdelivr.net/npm/simple-peer@9.11.0/dist/simple-peer.min.js"></script>
+</head>
+
+<body>
+  <h1>Administrador</h1>
+  <button id="create-call-button">Crear llamada</button>
+  <button id="join-call-button">Unirse a llamada</button>
+  <input id="call-id-input" type="text" placeholder="ID de la llamada">
+  <div id="call-list"></div>
+  <script>
+    const createCallButton = document.getElementById("create-call-button");
+    const joinCallButton = document.getElementById("join-call-button");
+    const callIdInput = document.getElementById("call-id-input");
+    const callList = document.getElementById("call-list");
+
+    createCallButton.addEventListener("click", async () => {
+      // Crear una nueva llamada
+      const response = await fetch("/create-call", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const callId = await response.json();
+      callIdInput.value = callId;
+    });
+
+    joinCallButton.addEventListener("click", async () => {
+      // Unirse a una llamada existente
+      const callId = callIdInput.value;
+      const response = await fetch("/join-call", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ callId }),
+      });
+      const peer = await response.json();
+      // Mostrar la lista de candidatos
+      const candidates = await fetch("/get-candidates", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const candidatesList = await candidates.json();
+      callList.innerHTML = "";
+      candidatesList.forEach((candidate) => {
+        const candidateElement = document.createElement("div");
+        candidateElement.textContent = candidate.name;
+        candidateElement.addEventListener("click", async () => {
+          // Seleccionar a un candidato
+          const response = await fetch("/select-candidate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ callId, candidateId: candidate.id }),
+          });
+          const peer = await response.json();
+          // Establecer la conexión con el candidato seleccionado
+          const video = document.getElementById("video");
+          video.srcObject = peer.stream;
+        });
+        callList.appendChild(candidateElement);
+      });
+    });
+  </script>
+  <video id="video" width="640" height="480" autoplay></video>
+</body>
+
+</html>
