@@ -1,0 +1,1 @@
+export const Interviews = () => <h1>Interviews</h1>

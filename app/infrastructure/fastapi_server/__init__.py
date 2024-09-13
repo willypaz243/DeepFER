@@ -6,6 +6,8 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from .api.v1 import router as v1_router
+
 app = FastAPI()
 cors = ["*"]
 
@@ -25,11 +27,6 @@ async def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-@app.get("/greet")
-async def greet():
-    return {"message": "hello world"}
-
-
 @sio.on("connect")
 async def connect(sid, env):
     print("New Client Connected to This id :" + " " + str(sid))
@@ -45,3 +42,7 @@ async def my_message(sid, data):
 @sio.on("disconnect")
 async def disconnect(sid):
     print("Client Disconnected: " + " " + str(sid))
+
+
+# Api routes
+app.include_router(v1_router, prefix="/api", tags=["v1"])
