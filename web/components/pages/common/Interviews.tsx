@@ -1,1 +1,9 @@
-export const Interviews = () => <h1>Interviews</h1>
+import { Box, Typography } from "@mui/material";
+
+export const Interviews = () => {
+  return (
+    <Box>
+      <Typography variant="h1">Interviews</Typography>
+    </Box>
+  );
+};
