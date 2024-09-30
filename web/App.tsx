@@ -119,13 +119,11 @@ const App = () => {
         router={router}
       >
         <DashboardLayout>
-          <PageContainer slots={{ toolbar: PageContainerToolbar }}>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/interviews" element={<Interviews />} />
-              <Route path="/reports" element={<Reports />} />
-            </Routes>
-          </PageContainer>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/interviews" element={<Interviews />} />
+            <Route path="/reports" element={<Reports />} />
+          </Routes>
         </DashboardLayout>
       </AppProvider>
     </HashRouter>
