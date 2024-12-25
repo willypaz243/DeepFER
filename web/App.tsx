@@ -3,33 +3,17 @@ import {
   QuestionAnswer,
   Report,
 } from "@mui/icons-material";
-import { createTheme } from "@mui/material";
 
 import {
   AppProvider,
   DashboardLayout,
   Navigation,
-  PageContainer,
-  PageContainerToolbar,
   Router,
 } from "@toolpad/core";
 import React from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
-import { Dashboard, Reports } from "./components/pages/admin";
-import { Interviews } from "./components/pages/common/Interviews";
-
-// const App = () => {
-//   return (
-//     <HashRouter>
-//       <Layout>
-//         <Routes>
-//           <Route path="/" element={<Home />} />
-//           <Route path="/interviews" element={<Interviews />} />
-//         </Routes>
-//       </Layout>
-//     </HashRouter>
-//   );
-// };
+import { HashRouter } from "react-router-dom";
+import AppRoutes from "./routes";
+import theme from "./theme";
 
 const NAVIGATION: Navigation = [
   {
@@ -44,6 +28,7 @@ const NAVIGATION: Navigation = [
   {
     segment: "interviews",
     title: "Interviews",
+    pattern: "interviews{/:call}?",
     icon: <QuestionAnswer />,
   },
   {
@@ -56,32 +41,6 @@ const NAVIGATION: Navigation = [
 const BRANDING = {
   title: "WSPC",
 };
-
-const determineThemeMode = () => {
-  const toolpadMode = localStorage.getItem("mui-toolpad-mode");
-  const systemMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-  const isToolpadModeUnseted = !toolpadMode || toolpadMode === "system";
-
-  const useSystemDarkMode = isToolpadModeUnseted && systemMode;
-
-  const themeMode = useSystemDarkMode
-    ? "dark"
-    : (toolpadMode as "light" | "dark");
-
-  localStorage.setItem("mui-toolpad-mode", themeMode);
-  return themeMode;
-};
-
-const theme = createTheme({
-  cssVariables: {
-    colorSchemeSelector: "data-toolpad-color-scheme",
-  },
-  colorSchemes: { light: true, dark: true },
-  palette: {
-    mode: determineThemeMode(),
-  },
-});
 
 const App = () => {
   const [pathname, setPathname] = React.useState(
@@ -119,11 +78,7 @@ const App = () => {
         router={router}
       >
         <DashboardLayout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/interviews" element={<Interviews />} />
-            <Route path="/reports" element={<Reports />} />
-          </Routes>
+          <AppRoutes />
         </DashboardLayout>
       </AppProvider>
     </HashRouter>

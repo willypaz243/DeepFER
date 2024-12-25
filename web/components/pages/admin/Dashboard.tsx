@@ -1,10 +1,10 @@
 import { Typography } from "@mui/material";
-import { PageContainer, PageContainerToolbar } from "@toolpad/core";
+import { PageContainer } from "@toolpad/core";
 
-export const Dashboard = () => {
+export default function Dashboard() {
   return (
-    <PageContainer slots={{ toolbar: PageContainerToolbar }}>
-      <Typography variant="h1">Dashboard </Typography>
+    <PageContainer>
+      <Typography variant="h1">Dashboard</Typography>
     </PageContainer>
   );
-};
+}

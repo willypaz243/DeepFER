@@ -1,7 +1,7 @@
-import { PageContainer, PageContainerToolbar } from "@toolpad/core";
+import { PageContainer } from "@toolpad/core";
 
-export const Reports = () => (
-  <PageContainer slots={{ toolbar: PageContainerToolbar }}>
+export default () => (
+  <PageContainer>
     <h1>Reports</h1>
   </PageContainer>
 );
