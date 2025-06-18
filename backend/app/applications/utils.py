@@ -6,7 +6,7 @@ import numpy as np
 from .deepfed import FedPredictor
 
 DFERP = FedPredictor()
-LABELS = ['Feliz', 'Neutral', 'Triste', 'Enfado', 'Asco', 'Sorpresa', 'Miedo']
+LABELS = ["Feliz", "Neutral", "Triste", "Enfado", "Asco", "Sorpresa", "Miedo"]
 
 
 def from_base64_to_cv2_image(buf) -> np.ndarray:
@@ -16,7 +16,7 @@ def from_base64_to_cv2_image(buf) -> np.ndarray:
 
 
 def analize_img_to_feeling(img_base64: str):
-    _, content = img_base64.split(',')
+    _, content = img_base64.split(",")
     img = from_base64_to_cv2_image(content)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     _, prediction = DFERP.predict_one(gray)
@@ -24,5 +24,10 @@ def analize_img_to_feeling(img_base64: str):
     if prediction is not None:
         prediction = (100 * prediction).astype(int)
     for i, label in enumerate(LABELS):
-        feeling.append({'label': label, 'value': int(prediction[i]) if prediction is not None else 0})
+        feeling.append(
+            {
+                "label": label,
+                "value": int(prediction[i]) if prediction is not None else 0,
+            }
+        )
     return feeling, prediction
