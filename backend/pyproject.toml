@@ -1,0 +1,12 @@
+[project]
+name = "emotecall-api"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Willy Samuel Paz Colque", email = "willypaz243@gmail.com" },
+]
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi[standard]>=0.114.0",
+]
